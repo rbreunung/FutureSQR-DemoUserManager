@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { first, Observable, Subscription } from 'rxjs';
 import { CsrfToken } from '../csrf';
+import { CsrfService } from '../csrf.service';
 
 @Component({
   selector: 'app-csrf-information',
@@ -10,10 +12,10 @@ export class CsrfInformationComponent implements OnInit {
 
   csrfToken: CsrfToken | null = null;
 
-  constructor() { }
+  constructor(private csrfService: CsrfService) { }
 
   ngOnInit(): void {
-    this.csrfToken = { token: "token", parameterName: "parameterName", headerName: "headerName" };
+    let s: Subscription = this.csrfService.getCsrfToken().pipe(first()).subscribe(t => this.csrfToken = t);
   }
 
 }
