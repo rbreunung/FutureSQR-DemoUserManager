@@ -5,11 +5,13 @@ import { AppComponent } from './app.component';
 import { CsrfInformationComponent } from './csrf-information/csrf-information.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { LoggingDemoComponent } from './logging-demo/logging-demo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CsrfInformationComponent
+    CsrfInformationComponent,
+    LoggingDemoComponent
   ],
   imports: [
     BrowserModule,
