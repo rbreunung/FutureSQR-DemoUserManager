@@ -4,4 +4,5 @@
     <label for="sayHelloInput" class="form-label">Email address</label>
     <input type="text" class="form-control" id="sayHelloInput" [(ngModel)]="message" placeholder="e.g. mom">
 </div>
-<button type="button" class="btn btn-primary" (click)="onPopupTriggered()">Say Hello!</button>
+<button type="button" class="btn btn-secondary" (click)="onPopupLocal()">Say Client Hello!</button><button
+    type="button" class="btn btn-primary" (click)="onPopupRemote()">Say Server Hello!</button>
