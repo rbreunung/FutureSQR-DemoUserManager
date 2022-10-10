@@ -6,17 +6,21 @@ import { CsrfInformationComponent } from './csrf-information/csrf-information.co
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LoggingDemoComponent } from './logging-demo/logging-demo.component';
+import { SayHelloComponent } from './say-hello/say-hello.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     CsrfInformationComponent,
-    LoggingDemoComponent
+    LoggingDemoComponent,
+    SayHelloComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

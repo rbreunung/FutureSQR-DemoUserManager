@@ -21,6 +21,6 @@ export class LoggingDemoComponent implements OnInit {
   }
 
   logDemoWarnMessage() {
-    console.warn("Hello Error World");
+    console.warn("Hello Warn World");
   }
 }
