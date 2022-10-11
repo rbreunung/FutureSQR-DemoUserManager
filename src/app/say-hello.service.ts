@@ -10,8 +10,7 @@ export class SayHelloService {
   constructor(private http: HttpClient) { }
 
   postServerHello(name: string): Observable<any> {
-    let p = new HttpParams();
-    p.append("name", name);
+    let p = new HttpParams().append("name", name);
     return this.http.post("/rest/say-hello", {}, { params: p, responseType: 'text' }).pipe(first());
   }
 }
