@@ -70,7 +70,8 @@
               "browserTarget": "FutureSQR-DemoUserManager:build:production"
             },
             "development": {
-              "browserTarget": "FutureSQR-DemoUserManager:build:development"
+              "browserTarget": "FutureSQR-DemoUserManager:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
