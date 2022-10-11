@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpEvent, HttpRequest, HttpHandler } from '@angular/common/http';
+import { HttpInterceptor, HttpEvent, HttpRequest, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { first, mergeMap, Observable } from 'rxjs';
 import { CsrfService } from './csrf.service';
 
@@ -15,8 +15,8 @@ export class CsrfInterceptor implements HttpInterceptor {
             console.info(`found relevant method ${httpRequest.method}`);
             return this.csrfService.getCsrfToken().pipe(first(), mergeMap(
                 token => {
-                    let newRequest = httpRequest.clone();
-                    newRequest.headers.append(token.headerName, token.token);
+                    let newHeaders: HttpHeaders = new HttpHeaders({ [token.headerName]: [token.token] });
+                    let newRequest = httpRequest.clone({ headers: newHeaders });
                     return next.handle(newRequest);
                 }));
         } else {
