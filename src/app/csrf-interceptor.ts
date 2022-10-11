@@ -3,6 +3,7 @@ import { HttpInterceptor, HttpEvent, HttpRequest, HttpHandler, HttpHeaders } fro
 import { first, mergeMap, Observable } from 'rxjs';
 import { CsrfService } from './csrf.service';
 
+/** @deprecated Replaced by default CSRF mechanism of angular. Can be deleted. */
 @Injectable()
 export class CsrfInterceptor implements HttpInterceptor {
 
