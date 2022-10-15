@@ -10,7 +10,7 @@ export class UserListService {
 
   constructor(private http: HttpClient) { }
 
-  getUserMap(): Observable<SimpleUser[]> {
+  getSimpleUsers(): Observable<SimpleUser[]> {
     const path = '/rest/user/simplelist';
     return this.http.get<SimpleUser[]>(path);
   }

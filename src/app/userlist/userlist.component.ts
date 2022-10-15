@@ -17,7 +17,7 @@ export class UserListComponent implements OnInit {
   constructor(private router: Router, private userListService: UserListService) { }
 
   ngOnInit(): void {
-    this.userListService.getUserMap().pipe(first()).subscribe({
+    this.userListService.getSimpleUsers().pipe(first()).subscribe({
       next: v => {
         this.users = v;
       }, error: e => {
