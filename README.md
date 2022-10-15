@@ -1,6 +1,9 @@
-# FutureSQRDemoUserManager
+# FutureSQR - Demo User Manager
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.4.
+[![Node.js CI](https://github.com/rbreunung/FutureSQR-DemoUserManager/actions/workflows/node.js.yml/badge.svg)](https://github.com/rbreunung/FutureSQR-DemoUserManager/actions/workflows/node.js.yml)
+
+- This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.4.
+- This project requires my FutureSQR Spting backend to run on port 8080.
 
 ## Development server
 
