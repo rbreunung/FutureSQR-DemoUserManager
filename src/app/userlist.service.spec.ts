@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CsrfService } from './csrf.service';
+import { UserListService } from './userlist.service';
 
-describe('CsrfService', () => {
-  let service: CsrfService;
+describe('UserListService', () => {
+  let service: UserListService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CsrfService);
+    service = TestBed.inject(UserListService);
   });
 
   it('should be created', () => {
