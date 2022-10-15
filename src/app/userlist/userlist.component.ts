@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { first } from 'rxjs';
 import { AuthenticationService } from '../authentication.service';
+import { SimpleUser } from '../userinfo';
+import { UserListService } from '../userlist.service';
 
 @Component({
   selector: 'app-userlist',
@@ -9,15 +12,21 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class UserListComponent implements OnInit {
 
+  users?: SimpleUser[];
 
-  constructor(private router: Router, private authService: AuthenticationService) { }
+  constructor(private router: Router, private userListService: UserListService) { }
 
   ngOnInit(): void {
-    if (!this.authService.isAuthenticated()) this.onLogin();
+    this.userListService.getUserMap().pipe(first()).subscribe({
+      next: v => {
+        this.users = v;
+      }, error: e => {
+        console.error(e);
+      }
+    })
   }
 
   onLogin(): void {
-
     this.router.navigate(["login"]);
   }
 }
