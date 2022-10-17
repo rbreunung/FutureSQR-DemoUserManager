@@ -55,12 +55,12 @@ export class UserEditComponent implements OnInit {
   onSubmitNewUser() {
     const newUser: User = {
       uuid: null,
-      password: null,
+      password: this.userForm.controls['password'].value,
       loginName: this.userForm.controls['loginName'].getRawValue()!,
       contactEmail: this.userForm.controls['contactEmail'].getRawValue()!,
       displayName: this.userForm.controls['displayName'].value!,
       banned: this.userForm.controls['banned'].value ? true : false
     };
-    this.userService.addNewUser(newUser);
+    this.userService.addNewUser(newUser).pipe(first()).subscribe({ error: console.error, complete: () => console.info('Add user completed.') });
   }
 }
