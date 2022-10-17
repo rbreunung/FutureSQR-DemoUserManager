@@ -7,10 +7,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { LoggingDemoComponent } from './logging-demo/logging-demo.component';
 import { SayHelloComponent } from './say-hello/say-hello.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './userlist/userlist.component';
 import { AdminUserListComponent } from './adminuserlist/adminuserlist.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -20,14 +21,16 @@ import { AdminUserListComponent } from './adminuserlist/adminuserlist.component'
     SayHelloComponent,
     LoginComponent,
     UserListComponent,
-    AdminUserListComponent
+    AdminUserListComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientXsrfModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

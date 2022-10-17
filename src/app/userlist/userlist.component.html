@@ -1,7 +1,7 @@
-<div>
+<div *ngIf="!users">
     <button type="button" class="btn btn-primary" (click)="onLogin()">Login</button>
 </div>
-<div id="userlist">
+<div id="userlist" *ngIf="users">
     <table class="table table-striped">
         <thead>
             <tr>

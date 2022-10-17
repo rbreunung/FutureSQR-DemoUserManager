@@ -1,0 +1,36 @@
+<form [formGroup]="userForm" (ngSubmit)="newUser?onSubmitNewUser(): onChangeDisplayName()">
+    <div class="mt-3 mb-3 row">
+        <label for="loginName" class="col-sm-3 col-form-label">Login Name</label>
+        <div class="col-sm-9">
+            <input type="text" [readonly]="!newUser" [class]="newUser ? 'form-control':'form-control-plaintext'"
+                id="loginName" formControlName="loginName">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="contactEmail" class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-9">
+            <input type="text" [readonly]="!newUser" [class]="newUser ? 'form-control':'form-control-plaintext'"
+                id="contactEmail" formControlName="contactEmail">
+        </div>
+    </div>
+    <div class="mb-3 row" *ngIf="newUser">
+        <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
+        <div class="col-sm-9">
+            <input type="password" autocomplete="false" class="form-control" id="inputPassword" formControlName="password">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="formDisplayName" class="col-sm-3 col-form-label">Display Name</label>
+        <div class="col-sm-9">
+            <input type="text" autocomplete="false" class="form-control" id="formDisplayName"
+                formControlName="displayName">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label" for="bannedCheck"> Banned </label>
+        <div class="col-sm-9">
+            <input class="form-check-input" type="checkbox" id="bannedCheck" formControlName="banned">
+        </div>
+    </div>
+    <button class="btn btn-primary" [disabled]="!userForm.valid" type="submit">Submit</button>
+</form>

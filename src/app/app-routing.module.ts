@@ -7,6 +7,7 @@ import { SayHelloComponent } from './say-hello/say-hello.component';
 import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './userlist/userlist.component';
 import { AdminUserListComponent } from './adminuserlist/adminuserlist.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,8 @@ const routes: Routes = [
   { path: 'say-hello', component: SayHelloComponent },
   { path: 'login', component: LoginComponent },
   { path: 'userlist', component: UserListComponent },
+  { path: 'user/edit/:uuid', component: UserEditComponent },
+  { path: 'user/add', component: UserEditComponent },
   { path: 'adminuserlist', component: AdminUserListComponent }
 ];
 
