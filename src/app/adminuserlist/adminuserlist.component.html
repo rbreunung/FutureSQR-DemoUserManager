@@ -1,19 +1,28 @@
-<table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Login</th>
-        <th scope="col">Display Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Control</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td></td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-    </tbody>
-  </table>
+<div *ngIf="!users">
+    <button type="button" class="btn btn-primary" (click)="onLogin()">Login</button>
+</div>
+<div id="userlist" *ngIf="users">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">uuid</th>
+                <th scope="col">loginName</th>
+                <th scope="col">banned</th>
+                <th scope="col">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users;let i=index">
+                <th scope="row">{{i}}</th>
+                <td>{{user.uuid}}</td>
+                <td>{{user.loginName}}</td>
+                <td>{{user.banned}}</td>
+                <td><button class="me-2 btn btn-outline-secondary btn-sm"
+                        (click)="user.banned ? unban(user) :  ban(user)">{{user.banned?'unban':'ban'}}</button> <a
+                        routerLink="/user/edit/{{user.uuid}}" role="button"
+                        class="btn btn-outline-secondary btn-sm">edit</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

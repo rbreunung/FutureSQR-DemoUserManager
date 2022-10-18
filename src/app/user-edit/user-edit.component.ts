@@ -38,16 +38,16 @@ export class UserEditComponent implements OnInit {
       if (this.user) {
         this.newUser = false;
         this.userForm.controls['loginName'].setValue(this.user.loginName);
-        this.userForm.get('contactEmail')?.setValue(this.user.loginName);
-        this.userForm.get('displayName')?.setValue(this.user.loginName);
-        this.userForm.get('banned')?.setValue(this.user.loginName);
+        this.userForm.controls['contactEmail'].setValue(this.user.contactEmail);
+        this.userForm.controls['displayName'].setValue(this.user.displayName);
+        this.userForm.controls['banned'].setValue(this.user.banned ? 'true' : '');
       }
     }
   }
 
   onChangeDisplayName() {
     if (this.user) {
-      this.user.displayName = this.userForm.get('displayName')?.getRawValue();
+      this.user.displayName = this.userForm.controls['displayName'].value!;
       this.userService.changeDisplayName(this.user).pipe(first()).subscribe({ error: e => console.error(e), complete: () => this.location.back() });
     }
   }

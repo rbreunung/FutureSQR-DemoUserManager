@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 import { SimpleUser, User } from './userinfo';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class UserListService {
   constructor(private http: HttpClient) { }
 
   addNewUser(user: User): Observable<User> {
-    const path = '/rest/user/add';
+    const path: string = '/rest/user/add';
     console.log(user);
     return this.http.post<User>(path, user).pipe(tap(u => this.users?.set(u.uuid!, u)));
   }
@@ -24,9 +24,24 @@ export class UserListService {
     return this.http.put<User>(path, user);
   }
 
+  banLoginName(loginName: string): Observable<User[]> {
+    const path = '/rest/user/ban';
+    return this.http.post<User>(path, {}, { params: new HttpParams().append('loginName', loginName) }).pipe(map(v => {
+      this.users?.set(v.uuid!, v);
+      return Array.from(this.users!.values())
+    }));
+  }
+  unbanLoginName(loginName: string): Observable<User[]> {
+    const path = '/rest/user/unban';
+    return this.http.post<User>(path, {}, { params: new HttpParams().append('loginName', loginName) }).pipe(map(v => {
+      this.users?.set(v.uuid!, v);
+      return Array.from(this.users!.values())
+    }));
+  }
+
   changeDisplayName(user: User): Observable<User> {
-    const path = '/rest/user/changeDisplayName';
-    return this.http.put<User>(path, {}, { params: new HttpParams().append('uuid', user.uuid!).append('displayName', user.displayName) });
+    const path = '/rest/user/updateDisplayName';
+    return this.http.post<User>(path, {}, { params: new HttpParams().append('loginName', user.loginName).append('displayName', user.displayName) });
   }
 
   getUser(uuid: string): User | undefined {
