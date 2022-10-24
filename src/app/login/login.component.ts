@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs';
 import { AuthenticationService } from '../authentication.service';
-import { User } from '../userinfo';
+import { BackendModelFullUserEntry } from '../backend/model/backend-model-user-entry';
+
 
 @Component({
   selector: 'app-login',
@@ -10,9 +12,11 @@ import { User } from '../userinfo';
 })
 export class LoginComponent implements OnInit {
 
-  username: string = "";
-  password: string = "";
-  user?: User;
+  userForm = new FormGroup({
+    loginName: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required])
+  })
+  user?: BackendModelFullUserEntry;
 
   constructor(private authService: AuthenticationService) { }
 
@@ -27,16 +31,22 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(): void {
-    this.authService.authenticate(this.password, this.username).pipe(first()).subscribe({
+    this.authService.authenticate(this.userForm.controls['loginName'].value!, this.userForm.controls['password'].value!).pipe(first()).subscribe({
       next: n => {
         this.user = n
       }, error: e => {
         this.user = undefined;
-        console.error("Please retry.");
+        console.error(e);
       }
     });
   }
 
+  getUserString(): string {
+    return JSON.stringify(this.user)
+  }
+
   onLogout(): void {
+    this.authService.logout()
+    this.user = undefined
   }
 }

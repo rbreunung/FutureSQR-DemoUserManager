@@ -7,16 +7,16 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">uuid</th>
-                <th scope="col">displayName</th>
-                <th scope="col">avatarId</th>
+                <th scope="col">display name</th>
+                <th scope="col">avatar id</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let user of users;let i=index">
                 <th scope="row">{{i}}</th>
                 <td>{{user.uuid}}</td>
-                <td>{{user.displayName}}</td>
-                <td>{{user.avatarId}}</td>
+                <td>{{user.displayname}}</td>
+                <td>{{user.avatarlocation}}</td>
             </tr>
         </tbody>
     </table>

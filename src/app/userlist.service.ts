@@ -1,60 +1,76 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, of, tap } from 'rxjs';
-import { SimpleUser, User } from './userinfo';
+import { BackendModelFullUserEntry, BackendModelSimpleUserEntry } from './backend/model/backend-model-user-entry';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserListService {
 
-  users?: Map<string, User>;
+  users?: Map<string, BackendModelFullUserEntry>;
 
   constructor(private http: HttpClient) { }
 
-  addNewUser(user: User): Observable<User> {
-    const path: string = '/rest/user/add';
-    console.log(user);
-    return this.http.post<User>(path, user).pipe(tap(u => this.users?.set(u.uuid!, u)));
+  addNewUser(newUser: { [key: string]: any, loginname: string, password: string, displayname: string, email: string, vcsNames: string[] }): Observable<BackendModelFullUserEntry> {
+    const path: string = '/rest/user/addUser';
+    let data = new FormData();
+    for (let key in newUser) {
+      data.append(key, newUser[key]);
+    }
+    return this.http.post<BackendModelFullUserEntry>(path, data).pipe(tap(u => this.users?.set(u.uuid!, u)));
   }
 
-  editUser(user: User): Observable<User> {
+  editUser(user: { [key: string]: any, uuid: string, displayName: string, vcsNames: string[] }): Observable<BackendModelFullUserEntry> {
     const path = '/rest/user/editUser';
-    this.users?.set(user.uuid!, user);
-    return this.http.put<User>(path, user);
+    let data = new FormData();
+    for (let key in user) {
+      data.append(key, user[key]);
+    }
+
+    return this.http.put<BackendModelFullUserEntry>(path, user);
   }
 
-  banLoginName(loginName: string): Observable<User[]> {
+  banLoginName(uuid: string): Observable<BackendModelFullUserEntry[]> {
     const path = '/rest/user/ban';
-    return this.http.post<User>(path, {}, { params: new HttpParams().append('loginName', loginName) }).pipe(map(v => {
-      this.users?.set(v.uuid!, v);
-      return Array.from(this.users!.values())
-    }));
+    return this.handlePostCommand(uuid, path);
   }
-  unbanLoginName(loginName: string): Observable<User[]> {
+  unbanLoginName(uuid: string): Observable<BackendModelFullUserEntry[]> {
     const path = '/rest/user/unban';
-    return this.http.post<User>(path, {}, { params: new HttpParams().append('loginName', loginName) }).pipe(map(v => {
-      this.users?.set(v.uuid!, v);
-      return Array.from(this.users!.values())
-    }));
+    return this.handlePostCommand(uuid, path);
   }
 
-  changeDisplayName(user: User): Observable<User> {
-    const path = '/rest/user/updateDisplayName';
-    return this.http.post<User>(path, {}, { params: new HttpParams().append('loginName', user.loginName).append('displayName', user.displayName) });
-  }
-
-  getUser(uuid: string): User | undefined {
+  getUser(uuid: string): BackendModelFullUserEntry | undefined {
     return this.users?.get(uuid);
   }
 
-  getAdminUsers(): Observable<User[]> {
+  getFullUsers(): Observable<BackendModelFullUserEntry[]> {
     const path = '/rest/user/adminUserList';
-    return this.http.get<User[]>(path).pipe(tap(v => this.users = new Map(v.map(e => [e.uuid!, e]))));
+    return this.http.get<BackendModelFullUserEntry[]>(path).pipe(tap(v => this.users = new Map(v.map(e => [e.uuid!, e]))));
   }
 
-  getSimpleUsers(): Observable<SimpleUser[]> {
+  getSimpleUsers(): Observable<BackendModelSimpleUserEntry[]> {
     const path = '/rest/user/simpleList';
-    return this.http.get<SimpleUser[]>(path);
+    return this.http.get<BackendModelSimpleUserEntry[]>(path);
+  }
+
+  grantAdminRole(uuid: string) {
+    const path = '/rest/user/grantadminrole';
+    return this.handlePostCommand(uuid, path);
+  }
+
+  revokeAdminRole(uuid: string) {
+    const path = '/rest/user/revokeadminrole';
+    return this.handlePostCommand(uuid, path);
+  }
+
+  private handlePostCommand(uuid: string, path: string): Observable<BackendModelFullUserEntry[]> {
+    let data = new FormData();
+    data.append("uuid", uuid);
+    return this.http.post<BackendModelFullUserEntry>(path, data).pipe(map(v => {
+      this.users?.set(v.uuid!, v);
+      return Array.from(this.users!.values());
+    }));
   }
 }
+

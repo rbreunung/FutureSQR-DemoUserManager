@@ -16,10 +16,10 @@
             <tr *ngFor="let user of users;let i=index">
                 <th scope="row">{{i}}</th>
                 <td>{{user.uuid}}</td>
-                <td>{{user.loginName}}</td>
-                <td>{{user.banned}}</td>
+                <td>{{user.loginname}}</td>
+                <td>{{user.isbanned}}</td>
                 <td><button class="me-2 btn btn-outline-secondary btn-sm"
-                        (click)="user.banned ? unban(user) :  ban(user)">{{user.banned?'unban':'ban'}}</button> <a
+                        (click)="user.isbanned ? unban(user) :  ban(user)">{{user.isbanned?'unban':'ban'}}</button> <a
                         routerLink="/user/edit/{{user.uuid}}" role="button"
                         class="btn btn-outline-secondary btn-sm">edit</a></td>
             </tr>

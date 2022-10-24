@@ -1,15 +1,15 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { first, Observable, of, Subscriber, tap, throwError } from 'rxjs';
-import { User } from './userinfo'
+import { BackendModelFullUserEntry } from './backend/model/backend-model-user-entry';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService implements OnInit {
 
-  private user?: User;
-  private username?: string;
+  private user?: BackendModelFullUserEntry;
+  private loginName?: string;
   private password?: string;
 
   constructor(private http: HttpClient) { }
@@ -22,16 +22,19 @@ export class AuthenticationService implements OnInit {
     return this.user != null;
   }
 
-  authenticate(newPassword?: string, newUsername?: string): Observable<User> {
-    if (newUsername) {
-      this.username = newUsername;
+  authenticate(newLoginName?: string, newPassword?: string): Observable<BackendModelFullUserEntry> {
+    if (newLoginName) {
+      this.loginName = newLoginName;
     }
     if (newPassword) {
       this.password = newPassword;
     }
-    let observable = new Observable<User>((subscriber) => {
-      if (this.username && this.password) {
-        let a = this.http.post<User>('/rest/user/authenticate', {}, { params: new HttpParams().append('username', this.username).append('password', this.password) })
+    let observable = new Observable<BackendModelFullUserEntry>((subscriber) => {
+      if (this.loginName && this.password) {
+
+        let params = new HttpParams().append('loginname', this.loginName).append('password', this.password)
+
+        let a = this.http.post<BackendModelFullUserEntry>('/rest/user/authenticate', {}, { params: params })
           .pipe(first())
         a.subscribe({
           next: value => {
@@ -41,7 +44,7 @@ export class AuthenticationService implements OnInit {
             subscriber.complete();
           }, error: error => {
             this.user = undefined;
-            console.error('Error: %s', error);
+            console.error(error);
             subscriber.error(error);
             subscriber.complete();
           }
@@ -58,8 +61,8 @@ export class AuthenticationService implements OnInit {
 
   }
 
-  refreshUserInfo(): Observable<User> {
-    return this.http.get<User>("/rest/user/info").pipe(first(), tap({
+  refreshUserInfo(): Observable<BackendModelFullUserEntry> {
+    return this.http.get<BackendModelFullUserEntry>("/rest/user/info").pipe(first(), tap({
       next: u => this.user = u, error: e => {
         this.user = undefined;
         console.error(e);
@@ -67,7 +70,15 @@ export class AuthenticationService implements OnInit {
     }));
   }
 
-  getUserInfo(): User | undefined {
+  getUserInfo(): BackendModelFullUserEntry | undefined {
     return this.user;
+  }
+
+  logout() {
+    this.http.post("/rest/user/logout", null).pipe(first()).subscribe()
+    this.user = undefined
+    this.loginName = undefined
+    this.password = undefined
+    //TODO send some global reset event to delete all cached values from the other services
   }
 }

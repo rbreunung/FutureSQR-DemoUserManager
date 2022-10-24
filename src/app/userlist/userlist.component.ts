@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { first } from 'rxjs';
 import { AuthenticationService } from '../authentication.service';
-import { SimpleUser } from '../userinfo';
 import { UserListService } from '../userlist.service';
+import { BackendModelSimpleUserEntry } from '../backend/model/backend-model-user-entry';
 
 @Component({
   selector: 'app-userlist',
@@ -12,7 +12,7 @@ import { UserListService } from '../userlist.service';
 })
 export class UserListComponent implements OnInit {
 
-  users?: SimpleUser[];
+  users?: BackendModelSimpleUserEntry[];
 
   constructor(private router: Router, private userListService: UserListService) { }
 
