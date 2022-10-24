@@ -7,10 +7,10 @@
         </div>
     </div>
     <div class="mb-3 row">
-        <label for="contactEmail" class="col-sm-3 col-form-label">Email</label>
+        <label for="email" class="col-sm-3 col-form-label">Email</label>
         <div class="col-sm-9">
             <input type="text" [readonly]="!newUser" [class]="newUser ? 'form-control':'form-control-plaintext'"
-                id="contactEmail" formControlName="contactEmail">
+                id="email" formControlName="email">
         </div>
     </div>
     <div class="mb-3 row" *ngIf="newUser">

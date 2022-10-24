@@ -12,8 +12,9 @@ import { BackendModelFullUserEntry } from '../backend/model/backend-model-user-e
   styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
+
   onChangeUser() {
-    throw new Error('Method not implemented.');
+    this.userService.editUser({ uuid: this.user?.uuid!, displayName: this.userForm.controls['displayName'].value! }).pipe(first()).subscribe({ next: v => this.user = v });
   }
 
   newUser: boolean = true;
