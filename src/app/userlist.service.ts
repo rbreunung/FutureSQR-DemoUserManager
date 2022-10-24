@@ -13,7 +13,7 @@ export class UserListService {
   constructor(private http: HttpClient) { }
 
   addNewUser(newUser: { [key: string]: any, loginname: string, password: string, displayname: string, email: string, vcsNames: string[] }): Observable<BackendModelFullUserEntry> {
-    const path: string = '/rest/user/addUser';
+    const path: string = '/rest/user/add';
     let data = new FormData();
     for (let key in newUser) {
       data.append(key, newUser[key]);
@@ -21,14 +21,14 @@ export class UserListService {
     return this.http.post<BackendModelFullUserEntry>(path, data).pipe(tap(u => this.users?.set(u.uuid!, u)));
   }
 
-  editUser(user: { [key: string]: any, uuid: string, displayName: string, vcsNames: string[] }): Observable<BackendModelFullUserEntry> {
-    const path = '/rest/user/editUser';
+  editUser(user: { [key: string]: any, uuid: string, displayName?: string, vcsNames?: string[] }): Observable<BackendModelFullUserEntry> {
+    const path = '/rest/user/edit';
     let data = new FormData();
     for (let key in user) {
       data.append(key, user[key]);
     }
 
-    return this.http.put<BackendModelFullUserEntry>(path, user);
+    return this.http.post<BackendModelFullUserEntry>(path, user);
   }
 
   banLoginName(uuid: string): Observable<BackendModelFullUserEntry[]> {
