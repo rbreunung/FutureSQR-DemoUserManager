@@ -7,9 +7,9 @@ export class BackendModelFullUserEntry {
 	public roles: string[] = [];
 	public email: string = "";
 	public isbanned: boolean = false;
-	public created: number = Date.now();
-	public modified: number = Date.now();
-	public banned: number = Date.now();
+	public created?: number;
+	public modified?: number;
+	public banned?: number;
 }
 
 export class BackendModelSimpleUserEntry {

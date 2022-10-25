@@ -21,14 +21,14 @@ export class UserListService {
     return this.http.post<BackendModelFullUserEntry>(path, data).pipe(tap(u => this.users?.set(u.uuid!, u)));
   }
 
-  editUser(user: { [key: string]: any, uuid: string, displayName?: string, vcsNames?: string[] }): Observable<BackendModelFullUserEntry> {
+  editUser(user: { [key: string]: any, uuid: string, displayname?: string, vcsNames?: string[] }): Observable<BackendModelFullUserEntry> {
     const path = '/rest/user/edit';
     let data = new FormData();
     for (let key in user) {
       data.append(key, user[key]);
     }
 
-    return this.http.post<BackendModelFullUserEntry>(path, user);
+    return this.http.post<BackendModelFullUserEntry>(path, data);
   }
 
   banLoginName(uuid: string): Observable<BackendModelFullUserEntry[]> {

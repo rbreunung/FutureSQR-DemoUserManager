@@ -32,13 +32,13 @@ export class AuthenticationService implements OnInit {
     let observable = new Observable<BackendModelFullUserEntry>((subscriber) => {
       if (this.loginName && this.password) {
 
-        let params = new HttpParams().append('loginname', this.loginName).append('password', this.password)
-        // let part = new FormData()
-        // part.append("loginname", this.loginName)
-        // part.append("password", this.password)
+        // let params = new HttpParams().append('loginname', this.loginName).append('password', this.password)
+        let part = new FormData()
+        part.append("loginname", this.loginName)
+        part.append("password", this.password)
 
-        let a = this.http.post<BackendModelFullUserEntry>('/rest/user/authenticate', {}, { params: params })
-          // let a = this.http.post<BackendModelFullUserEntry>('/rest/user/authenticate', part)
+        // let a = this.http.post<BackendModelFullUserEntry>('/rest/user/authenticate2', {}, { params: params })
+        let a = this.http.post<BackendModelFullUserEntry>('/rest/user/authenticate', part)
           .pipe(first())
         a.subscribe({
           next: value => {
