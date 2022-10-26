@@ -2,6 +2,11 @@
     <button type="button" class="btn btn-primary" (click)="onLogin()">Login</button>
 </div>
 <div id="userlist" *ngIf="users">
+    <div class="row m-3">
+        <div class="col">
+            <button class="btn btn-outline-success" (click)="onCreatUser()">Create User</button>
+        </div>
+    </div>
     <table class="table table-striped">
         <thead>
             <tr>

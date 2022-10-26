@@ -10,6 +10,9 @@ import { UserListService } from '../userlist.service';
   styleUrls: ['./adminuserlist.component.css']
 })
 export class AdminUserListComponent implements OnInit {
+  onCreatUser() {
+    this.router.navigate(["user", "add"])
+  }
 
   users?: BackendModelFullUserEntry[];
 
