@@ -24,6 +24,14 @@ export class AdminUserListComponent implements OnInit {
     })
   }
 
+  getDateString(dateNumber?: number): String {
+    if (!dateNumber) {
+      return ''
+    }
+    let date = new Date(dateNumber);
+    return date.toLocaleDateString()
+  }
+
   ban(user: BackendModelFullUserEntry) {
     this.userListService.banLoginName(user.uuid).pipe(first()).subscribe({
       next: v => this.users = v, error: console.error, complete: () => console.log("User ban returned.")
