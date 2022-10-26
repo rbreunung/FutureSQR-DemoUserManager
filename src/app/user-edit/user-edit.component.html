@@ -19,6 +19,12 @@
             <input type="password" autocomplete="false" class="form-control" id="inputPassword" formControlName="password">
         </div>
     </div>
+    <div class="mb-3 row" *ngIf="newUser">
+        <label for="inputPasswordConfirm" class="col-sm-3 col-form-label">Confirm Password</label>
+        <div class="col-sm-9">
+            <input type="password" autocomplete="false" class="form-control" id="inputPasswordConfirm" formControlName="passwordConfirm">
+        </div>
+    </div>
     <div class="mb-3 row">
         <label for="formDisplayName" class="col-sm-3 col-form-label">Display Name</label>
         <div class="col-sm-9">
@@ -26,10 +32,10 @@
                 formControlName="displayName">
         </div>
     </div>
-    <div class="mb-3 row">
+    <div class="mb-3 row" *ngIf="!newUser">
         <label class="col-sm-3 col-form-label" for="bannedCheck"> Banned </label>
         <div class="col-sm-9">
-            <input class="form-check-input" type="checkbox" id="bannedCheck" formControlName="banned">
+            <input class="form-check-input" type="checkbox" id="bannedCheck" formControlName="isbanned">
         </div>
     </div>
     <button class="btn btn-primary" [disabled]="!userForm.valid" type="submit">Submit</button>
