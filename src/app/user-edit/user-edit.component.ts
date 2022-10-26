@@ -14,7 +14,7 @@ import { BackendModelFullUserEntry } from '../backend/model/backend-model-user-e
 export class UserEditComponent implements OnInit {
 
   onChangeUser() {
-    this.userService.editUser({ uuid: this.user?.uuid!, displayName: this.userForm.controls['displayName'].value! }).pipe(first()).subscribe({ next: v => this.user = v });
+    this.userService.editUser({ uuid: this.user?.uuid!, displayname: this.userForm.controls['displayName'].value! }).pipe(first()).subscribe({ next: v => this.user = v });
   }
 
   newUser: boolean = true;
