@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SayHelloComponent } from './say-hello.component';
@@ -8,9 +9,10 @@ describe('SayHelloComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SayHelloComponent ]
+      imports: [HttpClientTestingModule],
+      declarations: [SayHelloComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(SayHelloComponent);
     component = fixture.componentInstance;

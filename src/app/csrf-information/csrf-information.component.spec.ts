@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CsrfInformationComponent } from './csrf-information.component';
@@ -8,9 +9,10 @@ describe('CsrfInformationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CsrfInformationComponent ]
+      imports: [HttpClientTestingModule],
+      declarations: [CsrfInformationComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CsrfInformationComponent);
     component = fixture.componentInstance;
